@@ -31,9 +31,11 @@
   <input type='text' id='name' placeholder='name'>
   <input type='text' id='address' placeholder='address'>
   <input type='text' id='town' placeholder='town'>
-  <input type='text' id='zipcode' placeholder='zipcode'>
   <input type='text' id='state' placeholder='state'>
-  <button type='button' onclick="addUser()">Add to Database</button>
+  <input type='text' id='zipcode' placeholder='zipcode'>
+  <button type='button' id = "addaddress" onclick="addUser()">Add Marker</button> 
+
+</br>
 
   <!-- Google maps element dom -->
   <div id="map"></div>
@@ -49,10 +51,32 @@
       zoom: 12,
       center: uluru
     });
+    var geocoder = new google.maps.Geocoder;
+    var infowindow = new google.maps.InfoWindow;
 
     var marker = new google.maps.Marker({
       position: uluru,
       map: map
+    });
+
+    document.getElementById('addaddress').addEventListener('click', function() {
+    geocodeAddress(geocoder, map, infowindow);
+  });
+  }
+
+  function geocodeAddress (geocoder, map, infowindow) {
+    var address = document.getElementById('address').value + " " + document.getElementById('town').value + " " + document.getElementById('state').value + " " + document.getElementById('zipcode').value;
+
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
     });
   }
 
