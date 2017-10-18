@@ -27,7 +27,39 @@
 
 
 <body>
-
+  <input type='text' id='name' placeholder='name'>
+  <input type='text' id='address' placeholder='address'>
+  <input type='text' id='town' placeholder='town'>
+  <input type='text' id='zipcode' placeholder='zipcode'>
+  <input type='text' id='state' placeholder='state'>
+  <button type='button' onclick="addUser()">Add to Database</button>
 </body>
+
+<script>
+
+  function initFirebase(){
+
+    var database = firebase.database(); 
+  }
+  function addUser(){
+    var name = document.getElementById('name').value; 
+    console.log(name); 
+    var address = document.getElementById('address').value; 
+    var town = document.getElementById('town').value; 
+    var zipcode = document.getElementById('zipcode').value; 
+    var state = document.getElementById('state').value; 
+
+    firebase.database().ref('Students/' + name).set({
+        "address": address, 
+        "town": town, 
+        "zipcode": zipcode, 
+        "state": state
+
+    });
+    console.log("added"); 
+
+  }
+  initFirebase(); 
+</script>
 
 </html>
