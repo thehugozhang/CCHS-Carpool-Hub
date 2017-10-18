@@ -11,7 +11,7 @@
 
 	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
   <link href="../css/style.css" rel="stylesheet">
-	<script>
+  <script>
   // Initialize Firebase
   var config = {
   	apiKey: "AIzaSyADnVGr84Qq2qeRz5vc2bZ3MQbjJ6GKSOU",
@@ -37,55 +37,10 @@
 
 </br>
 
-  <!-- Google maps element dom -->
-  <div id="map"></div>
+<!-- Google maps element dom -->
+<div id="map"></div>
 
 <!-- GOOGLE MAPS CODE BELOW -->
-
-<script>
-
-  function initMap() {
-    var uluru = {lat: 42.539278, lng: -71.366407};
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: uluru
-    });
-    var geocoder = new google.maps.Geocoder;
-    var infowindow = new google.maps.InfoWindow;
-
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
-
-    document.getElementById('addaddress').addEventListener('click', function() {
-    geocodeAddress(geocoder, map, infowindow);
-  });
-  }
-
-  function geocodeAddress (geocoder, map, infowindow) {
-    var address = document.getElementById('address').value + " " + document.getElementById('town').value + " " + document.getElementById('state').value + " " + document.getElementById('zipcode').value;
-
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  }
-
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDNGE0_gOFq0YbFjSB9OxtdwBcHSRm5_s&callback=initMap" async defer></script>
-
-</body>
-
 <!-- FIREBASE CODE BELOW -->
 
 <script>
@@ -103,10 +58,10 @@
     var state = document.getElementById('state').value; 
 
     firebase.database().ref('Students/' + name).set({
-        "address": address, 
-        "town": town, 
-        "zipcode": zipcode, 
-        "state": state
+      "address": address, 
+      "town": town, 
+      "zipcode": zipcode, 
+      "state": state
 
     });
     console.log("added"); 
@@ -114,5 +69,87 @@
   }
   initFirebase(); 
 </script>
+<script>
+  var studentsRef = firebase.database().ref('Students'); 
+  function initMap() {
+    var uluru = {lat: 42.539278, lng: -71.366407};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: uluru
+    });
+    var geocoder = new google.maps.Geocoder;
+    var infowindow = new google.maps.InfoWindow;
+
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+
+    
+    
+
+    
+    studentsRef.once("value")
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+          var key = childSnapshot.key;
+          console.log(key); 
+          var val = childSnapshot.val(); 
+
+          var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
+          console.log(val["address"]); 
+          geocodeAddress(geocoder, map, infowindow, address);
+
+           
+      });
+
+      
+    });
+
+
+    studentsRef.on("child_added", function(snapshot, prevChildKey) {
+      console.log("student added"); 
+      var key = snapshot.key; 
+      var val = snapshot.val(); 
+      var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
+          
+          geocodeAddress(geocoder, map, infowindow, address);
+    });
+
+    
+
+    
+
+    document.getElementById('addaddress').addEventListener('click', function() {
+      // var address = document.getElementById('address').value + " " + document.getElementById('town').value + " " + document.getElementById('state').value + " " + document.getElementById('zipcode').value;
+      // geocodeAddress(geocoder, map, infowindow, address);
+      addUser(); 
+    });
+  }
+
+  function geocodeAddress (geocoder, map, infowindow, address) {
+    
+
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDNGE0_gOFq0YbFjSB9OxtdwBcHSRm5_s&callback=initMap" async defer></script>
+
+</body>
+
+
 
 </html>
