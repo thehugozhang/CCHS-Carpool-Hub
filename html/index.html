@@ -10,6 +10,7 @@
 	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
 
 	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+  <link href="../css/style.css" rel="stylesheet">
 	<script>
   // Initialize Firebase
   var config = {
@@ -33,7 +34,35 @@
   <input type='text' id='zipcode' placeholder='zipcode'>
   <input type='text' id='state' placeholder='state'>
   <button type='button' onclick="addUser()">Add to Database</button>
+
+  <!-- Google maps element dom -->
+  <div id="map"></div>
+
+<!-- GOOGLE MAPS CODE BELOW -->
+
+<script>
+
+  function initMap() {
+    var uluru = {lat: 42.539278, lng: -71.366407};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: uluru
+    });
+
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+  }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDNGE0_gOFq0YbFjSB9OxtdwBcHSRm5_s&callback=initMap" async defer></script>
+
 </body>
+
+<!-- FIREBASE CODE BELOW -->
 
 <script>
 
