@@ -138,7 +138,7 @@
 
           var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
           console.log(val["address"]); 
-          geocodeAddress(geocoder, map, infowindow, address);
+          geocodeAddress(geocoder, map, infowindow, address, key);
 
            
       });
@@ -153,7 +153,7 @@
       var val = snapshot.val(); 
       var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
           
-          geocodeAddress(geocoder, map, infowindow, address);
+          geocodeAddress(geocoder, map, infowindow, address, key);
     });
 
     
@@ -167,13 +167,14 @@
     });
   }
 
-  function geocodeAddress (geocoder, map, infowindow, address) {
-    
+  function geocodeAddress (geocoder, map, infowindow, address, name) {
+    console.log(address); 
+    var addressArray = address.split(" "); 
     var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
-            '<h5 id="firstHeading" class="firstHeading">Dickbutt Cumstain</h5>'+
-            '<div id="bodyContent">'+ '<p>123 Main Street, Carlisle MA, 017413<br/>123-456-7890</p>'
+            '<h5 id="firstHeading" class="firstHeading">' + name + '</h5>'+
+            '<div id="bodyContent">'+ '<p>' + addressArray[0] + ' ' + addressArray[1] + '  ' + addressArray[2] + '  ' + ',' + '  ' + addressArray[3] + '  ' + addressArray[4] + '  ' + addressArray[5] + '<br/>123-456-7890</p>'
             '</div>'+
             '</div>';
 
