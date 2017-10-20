@@ -92,14 +92,26 @@
       zoom: 12,
       center: uluru
     });
-    var geocoder = new google.maps.Geocoder;
-    var infowindow = new google.maps.InfoWindow;
 
+    var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h5 id="firstHeading" class="firstHeading">John Smith</h5>'+
+            '<div id="bodyContent">'+ '<p>123 Main Street, Carlisle MA, 017413<br/>123-456-7890</p>'
+            '</div>'+
+            '</div>';
+
+    var geocoder = new google.maps.Geocoder;
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
     var marker = new google.maps.Marker({
       position: uluru,
       map: map
     });
-
+    marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
     
     studentsRef.once("value")
     .then(function(snapshot) {
@@ -141,6 +153,17 @@
 
   function geocodeAddress (geocoder, map, infowindow, address) {
     
+    var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h5 id="firstHeading" class="firstHeading">Dickbutt Cumstain</h5>'+
+            '<div id="bodyContent">'+ '<p>123 Main Street, Carlisle MA, 017413<br/>123-456-7890</p>'
+            '</div>'+
+            '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
 
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == 'OK') {
@@ -148,6 +171,9 @@
         var marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
         });
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
