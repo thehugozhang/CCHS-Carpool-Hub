@@ -70,15 +70,31 @@
     var town = document.getElementById('town').value; 
     var zipcode = document.getElementById('zipcode').value; 
     var state = document.getElementById('state').value; 
+    try{
+      if(name == "") throw "Empty name error";
+      if(address == "") throw "Empty name error";
 
-    firebase.database().ref('Students/' + name).set({
-      "address": address, 
-      "town": town, 
-      "zipcode": zipcode, 
-      "state": state
+      if(town == "") throw "Empty name error";
 
-    });
-    console.log("added"); 
+      if(zipcode == "") throw "Empty name error";
+
+      if(state == "") throw "Empty name error";
+
+
+        firebase.database().ref('Students/' + name).set({
+        "address": address, 
+        "town": town, 
+        "zipcode": zipcode, 
+        "state": state
+
+      });
+      console.log("added"); 
+    }
+    catch(err){
+        console.log("error:" + err);
+    }
+
+    
 
   }
   initFirebase(); 
