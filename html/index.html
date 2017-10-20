@@ -65,7 +65,7 @@
   }
   function addUser(){
     var name = document.getElementById('name').value; 
-    console.log(name); 
+    // console.log(name); 
     var address = document.getElementById('address').value; 
     var town = document.getElementById('town').value; 
     var zipcode = document.getElementById('zipcode').value; 
@@ -133,12 +133,13 @@
     .then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
           var key = childSnapshot.key;
-          console.log(key); 
+          // console.log(key); 
           var val = childSnapshot.val(); 
 
           var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
-          console.log(val["address"]); 
+         
           geocodeAddress(geocoder, map, infowindow, address, key);
+          
 
            
       });
@@ -149,11 +150,19 @@
 
     studentsRef.on("value", function(snapshot, prevChildKey) {
       console.log("student added"); 
+      // name
       var key = snapshot.key; 
+      // fields 
       var val = snapshot.val(); 
       var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
+          try{
+            if(key == "Students") throw "error"; 
+            geocodeAddress(geocoder, map, infowindow, address, key);
+          } catch(err){
+            console.log(err); 
+          }
           
-          geocodeAddress(geocoder, map, infowindow, address, key);
+          // geocodeAddress(geocoder, map, infowindow, address, key);
     });
 
     
@@ -168,7 +177,9 @@
   }
 
   function geocodeAddress (geocoder, map, infowindow, address, name) {
+    console.log(name); 
     console.log(address); 
+    // turns the address into an array, should change later by sending the actual object for better code 
     var addressArray = address.split(" "); 
     var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
