@@ -36,7 +36,7 @@
   <a class="navbar-brand">CCHS Carpool</a>
   <form class="form-inline">
     <input id = "autocomplete" class="form-control mr-sm-2 searchbar" type="text" placeholder="Enter your address..." onFocus = "geolocate()" aria-label="Search">
-    <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">Add</button>
+    <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">Find</button>
   </form>
 </nav>
 
@@ -101,25 +101,25 @@
     });
 
     
-    // studentsRef.once("value")
-    // .then(function(snapshot) {
-    //   snapshot.forEach(function(childSnapshot) {
-    //       var key = childSnapshot.key;
-    //       console.log(key); 
-    //       var val = childSnapshot.val(); 
+    studentsRef.once("value")
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+          var key = childSnapshot.key;
+          console.log(key); 
+          var val = childSnapshot.val(); 
 
-    //       var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
-    //       console.log(val["address"]); 
-    //       geocodeAddress(geocoder, map, infowindow, address);
+          var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
+          console.log(val["address"]); 
+          geocodeAddress(geocoder, map, infowindow, address);
 
            
-    //   });
+      });
 
       
-    // });
+    });
 
 
-    studentsRef.on("child_added", function(snapshot, prevChildKey) {
+    studentsRef.on("value", function(snapshot, prevChildKey) {
       console.log("student added"); 
       var key = snapshot.key; 
       var val = snapshot.val(); 
