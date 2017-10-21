@@ -151,12 +151,13 @@ var studentsRef = firebase.database().ref('Students');
       if (status == 'OK') {
         map.setCenter(results[0].geometry.location);
           // sets the latlng field on the student with name "name"
-          // console.log(name); 
+          console.log(results[0].geometry.location.lat()); 
           firebase.database().ref('Students/' + name).update({
-            "latlng": results[0].geometry.location.toString()
+            "lat": results[0].geometry.location.lat(),
+            "long": results[0].geometry.location.lng()
 
           });
-
+            // maybe put this in a separate function? 
           var marker = new google.maps.Marker({
             map: map,
             position: results[0].geometry.location
