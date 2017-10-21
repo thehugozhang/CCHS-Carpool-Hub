@@ -130,6 +130,30 @@ var studentsRef = firebase.database().ref('Students');
     });
   }
 
+
+  function getStudents(){
+    studentsRef.once("value")
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+          // key is the name of the child
+          var key = childSnapshot.key;
+          // console.log(key); 
+          // val is all the fields stored in a json object 
+          var val = childSnapshot.val(); 
+
+          var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
+
+          
+
+
+
+      });
+
+
+    });
+  }
+
+  
   function geocodeAddress (geocoder, map, infowindow, address, name) {
     // console.log(name); 
     // console.log(address); 
