@@ -55,50 +55,26 @@ function addUser(){
 // gets the reference of students 
 var studentsRef = firebase.database().ref('Students'); 
     function initMap() {
-  var uluru = {lat: 42.539278, lng: -71.366407};
+      var pos = { lat: 0, lng: 0 };
+if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
 
+            map.setCenter(pos);
+          });
+        } else {
+          // Browser doesn't support Geolocation
+        }
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
-    center: uluru
+    center: pos
   });
-
-  var contentString = '<div id="content">'+
-  '<div id="siteNotice">'+
-  '</div>'+
-  '<h5 id="firstHeading" class="firstHeading">John Smith</h5>'+
-  '<div id="bodyContent">'+ '<p>123 Main Street, Carlisle MA, 017413<br/>123-456-7890</p>'
-  '</div>'+
-  '</div>';
 
   var geocoder = new google.maps.Geocoder;
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
-
-    // studentsRef.once("value")
-    // .then(function(snapshot) {
-    //   snapshot.forEach(function(childSnapshot) {
-    //       var key = childSnapshot.key;
-    //       // console.log(key); 
-    //       var val = childSnapshot.val(); 
-
-    //       var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
-
-    //       geocodeAddress(geocoder, map, infowindow, address, key);
-
-
-
-    //   });
-
-
-    // });
+  
 
     // listener that checks for added children
     studentsRef.on("child_added", function(snapshot) {
@@ -114,7 +90,7 @@ var studentsRef = firebase.database().ref('Students');
       var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
 
 
-      geocodeAddress(geocoder, map, infowindow, address, key);
+      geocodeAddress(geocoder, map, address, key);
 
 
     });
@@ -155,10 +131,33 @@ var studentsRef = firebase.database().ref('Students');
   }
 
 
-  function geocodeAddress (geocoder, map, infowindow, address, name) {
+  function geocodeAddress (geocoder, map, address, name) {
     // console.log(name); 
     // console.log(address); 
     // turns the address into an array, should change later by sending the actual object for better code 
+    
+
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+          // sets the latlng field on the student with name "name"
+          console.log(results[0].geometry.location.lat()); 
+          firebase.database().ref('Students/' + name).update({
+            "lat": results[0].geometry.location.lat(),
+            "long": results[0].geometry.location.lng()
+
+          });
+          addMarker(map, results[0].geometry.location, address, name)
+          } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+
+  }
+
+
+  function addMarker(map, pos, address, name) {
+
     var addressArray = address.split(" "); 
     var contentString = '<div id="content">'+
     '<div id="siteNotice">'+
@@ -172,30 +171,15 @@ var studentsRef = firebase.database().ref('Students');
       content: contentString
     });
 
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-          // sets the latlng field on the student with name "name"
-          console.log(results[0].geometry.location.lat()); 
-          firebase.database().ref('Students/' + name).update({
-            "lat": results[0].geometry.location.lat(),
-            "long": results[0].geometry.location.lng()
-
-          });
-            // maybe put this in a separate function? 
-          var marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
             map: map,
-            position: results[0].geometry.location
+            position: pos
           });
           marker.addListener('click', function() {
             infowindow.open(map, marker);
           });
-        } else {
-          alert('Geocode was not successful for the following reason: ' + status);
-        }
-      });
+        
   }
-
 
   //AUTOCOMPLETE SEARCH BAR YEET
   var placeSearch, autocomplete;
