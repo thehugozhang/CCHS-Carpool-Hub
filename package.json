@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/thehugozhang/CCHS-Carpool-Hub/issues"
   },
-  "homepage": "https://github.com/thehugozhang/CCHS-Carpool-Hub#readme"
+  "homepage": "https://github.com/thehugozhang/CCHS-Carpool-Hub#readme",
+  "dependencies": {
+    "firebase": "^4.6.0"
+  }
 }
