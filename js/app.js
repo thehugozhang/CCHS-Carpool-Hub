@@ -14,6 +14,7 @@ function initFirebase(){
   var database = firebase.database(); 
 }
 
+var allMarkers = [];
 
 function addUser(){
     // gets the field from the form
@@ -104,10 +105,15 @@ if (navigator.geolocation) {
       // geocodeAddress(geocoder, map, infowindow, address);
       addUser(); 
     });
+
+    document.getElementById('dropdownoption').addEventListener('click', function() {
+      console.log(pos)
+      defineRadius(pos, document.getElementById('dropdownoption').innerHTML, document.getElementById('radiuslabel'), map)
+    });
   }
 
 
-  function getStudents(){
+  function defineRadius(userloc, radius, label, map){
     studentsRef.once("value")
     .then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
@@ -118,11 +124,41 @@ if (navigator.geolocation) {
           // so if you want to get the lat u do val["lat"]
           var val = childSnapshot.val(); 
 
-          var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
+          var markerPos = new google.maps.LatLng(
+            val["lat"],
+            val["long"]
+          )
 
+          var userLocation = new google.maps.LatLng(
+            userloc["lat"],
+            userloc["lng"]
+          )
+
+          label.innerHTML = radius
+          finalRadius = (Number(radius.substr(0,radius.indexOf(' ')))) * 1609.34;
+
+          //var address = val["address"] + " " + val["town"] + " " + val["state"] + " " + val["zipcode"];
           
-
-
+          var distanceBetween = Number(google.maps.geometry.spherical.computeDistanceBetween(userLocation, markerPos))
+          if (distanceBetween < finalRadius) {
+            for (var i = 0; i < allMarkers.length; i++) {
+              if (allMarkers[i].getPosition().lat() == markerPos.lat()) {
+                if (allMarkers[i].getPosition().lng() == markerPos.lng()) {
+                  allMarkers[i].setVisible(true)
+                }
+              }
+            }
+          }
+          else {
+            
+            for (var i = 0; i < allMarkers.length; i++) {
+              if (allMarkers[i].getPosition().lat() == markerPos.lat()) {
+                if (allMarkers[i].getPosition().lng() == markerPos.lng()) {
+                  allMarkers[i].setVisible(false)
+                }
+              }
+            }
+          }
 
       });
 
@@ -178,6 +214,7 @@ if (navigator.geolocation) {
           marker.addListener('click', function() {
             infowindow.open(map, marker);
           });
+    allMarkers.push(marker)
         
   }
 

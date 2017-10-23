@@ -35,6 +35,11 @@ body{
 	text-align: center;
 }
 
+.filter {
+	text-align: center;
+	margin: 15px;
+}
+
 .searchbar {
 	width: 300px
 }

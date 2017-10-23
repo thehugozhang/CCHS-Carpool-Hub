@@ -12,6 +12,8 @@
   <link href="../css/style.css" rel="stylesheet">
   <link href="../css/bootstrapcss/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 
   <script src="../js/bootstrapjs/bootstrap.min.js"></script>
 
@@ -52,10 +54,28 @@
 </div>
 <!-- GOOGLE MAPS CODE BELOW -->
 <!-- FIREBASE CODE BELOW -->
+<div class = "filter">
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filter by Radius
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a id = "dropdownoption" class="dropdown-item" href="#">1 mi</a>
+      <a id = "dropdownoption" class="dropdown-item" href="#">5 mi</a>
+      <a id = "dropdownoption" class="dropdown-item" href="#">10 mi</a>
+    </div>
+
+    <h4 style = "display: inline-block; margin: 15px;" id = "radiuslabel">...</h4>
+
+  </div>
+
+  
+
+</div>
 
 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDNGE0_gOFq0YbFjSB9OxtdwBcHSRm5_s&libraries=places&callback=initialize"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDNGE0_gOFq0YbFjSB9OxtdwBcHSRm5_s&libraries=geometry,places&callback=initialize"
         async defer></script>
 
 </body>
