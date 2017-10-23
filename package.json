@@ -1,0 +1,19 @@
+{
+  "name": "cchscarpoolhub",
+  "version": "1.0.0",
+  "description": "CCHS Carpool yay",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thehugozhang/CCHS-Carpool-Hub.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thehugozhang/CCHS-Carpool-Hub/issues"
+  },
+  "homepage": "https://github.com/thehugozhang/CCHS-Carpool-Hub#readme"
+}
