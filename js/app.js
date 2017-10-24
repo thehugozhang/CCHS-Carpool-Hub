@@ -106,9 +106,14 @@ if (navigator.geolocation) {
       addUser(); 
     });
 
-    document.getElementById('dropdownoption').addEventListener('click', function() {
-      console.log(pos)
-      defineRadius(pos, document.getElementById('dropdownoption').innerHTML, document.getElementById('radiuslabel'), map)
+    document.getElementById('dropdownoption1').addEventListener('click', function() {
+      defineRadius(pos, document.getElementById('dropdownoption1').innerHTML, document.getElementById('radiuslabel'), map)
+    });
+    document.getElementById('dropdownoption2').addEventListener('click', function() {
+      defineRadius(pos, document.getElementById('dropdownoption2').innerHTML, document.getElementById('radiuslabel'), map)
+    });
+    document.getElementById('dropdownoption3').addEventListener('click', function() {
+      defineRadius(pos, document.getElementById('dropdownoption3').innerHTML, document.getElementById('radiuslabel'), map)
     });
   }
 
