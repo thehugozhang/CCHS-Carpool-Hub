@@ -1,3 +1,7 @@
+var map;
+var infowindow;
+
+
 var config = {
   apiKey: "AIzaSyADnVGr84Qq2qeRz5vc2bZ3MQbjJ6GKSOU",
   authDomain: "cchs-carpool.firebaseapp.com",
@@ -71,7 +75,7 @@ if (navigator.geolocation) {
         } else {
           // Browser doesn't support Geolocation
         }
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: pos
   });
@@ -84,8 +88,7 @@ if (navigator.geolocation) {
       
 
   var geocoder = new google.maps.Geocoder;
-  
-
+  infowindow = new google.maps.InfoWindow(); 
     // listener that checks for added children
     studentsRef.on("child_added", function(snapshot) {
 
@@ -101,7 +104,6 @@ if (navigator.geolocation) {
 
 
       geocodeAddress(geocoder, map, address, key);
-
 
     });
 
@@ -125,6 +127,9 @@ if (navigator.geolocation) {
       defineRadius(pos, document.getElementById('dropdownoption3').innerHTML, document.getElementById('radiuslabel'), map)
     });
   }
+
+
+
 
 function CenterControl(controlDiv, map) {
 
@@ -236,6 +241,7 @@ function CenterControl(controlDiv, map) {
 
   }
 
+  
 
   function addMarker(map, pos, address, name) {
 
@@ -248,20 +254,27 @@ function CenterControl(controlDiv, map) {
     '</div>'+
     '</div>';
 
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
 
     var marker = new google.maps.Marker({
             map: map,
             position: pos
           });
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });
-    allMarkers.push(marker)
+
+    google.maps.event.addListener(marker, 'mouseover', infoCallback(contentString, marker));
+    allMarkers.push(marker);
         
   }
+
+function infoCallback(contentString, marker) {
+  return function() {
+    infowindow.close();
+    // update the content of the infowindow before opening it
+    infowindow.setContent(contentString)
+    infowindow.open(map, marker);
+
+  };
+}
+
 
   //AUTOCOMPLETE SEARCH BAR YEET
   var placeSearch, autocomplete;
@@ -329,3 +342,6 @@ function CenterControl(controlDiv, map) {
        initMap();
        initAutocomplete();
      }
+
+
+
