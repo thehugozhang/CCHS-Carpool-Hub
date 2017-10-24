@@ -53,6 +53,8 @@ function addUser(){
   }
   initFirebase(); 
 
+var centerPos;
+
 // gets the reference of students 
 var studentsRef = firebase.database().ref('Students'); 
     function initMap() {
@@ -63,7 +65,7 @@ if (navigator.geolocation) {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
+            centerPos = pos
             map.setCenter(pos);
           });
         } else {
@@ -73,6 +75,13 @@ if (navigator.geolocation) {
     zoom: 12,
     center: pos
   });
+
+  var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+      
 
   var geocoder = new google.maps.Geocoder;
   
@@ -117,6 +126,37 @@ if (navigator.geolocation) {
     });
   }
 
+function CenterControl(controlDiv, map) {
+
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#800000';
+        controlUI.style.border = '2px solid #800000';
+        controlUI.style.borderRadius = '0px 0px 15px 15px';
+        controlUI.style.boxShadow = '0 5px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(255,255,255)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Center Map';
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners: simply set the map to Chicago.
+        controlUI.addEventListener('click', function() {
+          map.setCenter(centerPos);
+        });
+
+      }
 
   function defineRadius(userloc, radius, label, map){
     studentsRef.once("value")
