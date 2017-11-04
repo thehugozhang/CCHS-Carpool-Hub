@@ -135,8 +135,8 @@ function CenterControl(controlDiv, map) {
 
         // Set CSS for the control border.
         var controlUI = document.createElement('div');
-        controlUI.style.backgroundColor = '#800000';
-        controlUI.style.border = '2px solid #800000';
+        controlUI.style.backgroundColor = '#510C1D';
+        controlUI.style.border = '2px solid #510C1D';
         controlUI.style.borderRadius = '0px 0px 15px 15px';
         controlUI.style.boxShadow = '0 5px 6px rgba(0,0,0,.3)';
         controlUI.style.cursor = 'pointer';

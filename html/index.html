@@ -32,7 +32,12 @@
 
 <body>
 <nav class="classicnav navbar navbar-light justify-content-between">
-  <a class="navbar-brand">CCHS Carpool</a>
+  <a class="navbar-brand">
+
+    <img src="logo.png" width="100" height="100" alt="">
+
+    Concord-Carlisle Carpool
+  </a>
   <form class="form-inline">
     <input id = "autocomplete" class="form-control mr-sm-2 searchbar" type="text" placeholder="Enter your address..." onFocus = "geolocate()" aria-label="Search">
     <button class="btn btn-outline-custom my-2 my-sm-0" type="submit">Find</button>
@@ -43,7 +48,7 @@
 <!-- Google maps element dom -->
 <div id="map"></div>
 
-<br />
+<div class = "container-fluid form">
 
 <div class = "tempsort">
   <input type='text' id='name' placeholder='name'>
@@ -55,25 +60,34 @@
 </div>
 <!-- GOOGLE MAPS CODE BELOW -->
 <!-- FIREBASE CODE BELOW -->
-<div class = "filter">
+  <div class = "filter">
 
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Filter by Radius
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a id = "dropdownoption1" class="dropdown-item" href="#">1 mi</a>
-      <a id = "dropdownoption2" class="dropdown-item" href="#">5 mi</a>
-      <a id = "dropdownoption3" class="dropdown-item" href="#">10 mi</a>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter by Radius
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a id = "dropdownoption1" class="dropdown-item" href="#">1 mi</a>
+        <a id = "dropdownoption2" class="dropdown-item" href="#">5 mi</a>
+        <a id = "dropdownoption3" class="dropdown-item" href="#">10 mi</a>
+      </div>
+
+      <h4 style = "display: inline-block; margin: 15px;" id = "radiuslabel">...</h4>
+
     </div>
 
-    <h4 style = "display: inline-block; margin: 15px;" id = "radiuslabel">...</h4>
+    
 
   </div>
-
-  
-
 </div>
+
+<footer id = "footer">
+  <a href = "https://github.com/thehugozhang/CCHS-Carpool-Hub"><img id = "github" class = "imageLink" src = "GitHub-Mark/PNG/GitHub-Mark-Light-64px.png" style = "width: 50px; height: 50px" ></a>
+  <h4>Made by Steve Li and Hugo Zhang</h4>
+
+<!--   https://github.com/thehugozhang/CCHS-Carpool-Hub
+ -->
+</footer>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDNGE0_gOFq0YbFjSB9OxtdwBcHSRm5_s&libraries=geometry,places&callback=initialize"

@@ -4,14 +4,34 @@ body{
 	
 	
 }
+html, body{
+	height: 100%;
+}
+.navbar{
+	height: 100px !important;
+}
+.navbar-brand {
+
+	z-index: 100000000000000 !important;
+}
+
+.navbar-brand img{
+	/*margin-top: 30px;*/
+}
+#map{
+	z-index: 1 !important;
+}
+.navbar-brand{
+	height: 100px !important;
+}
 #map {
    width: 100%;
-   height: 500px;
+   height: 100%;
    background-color: white;
 }
 
 .classicnav {
-	background: #800000 !important;
+	background: #510C1D !important;
 	color: white;
 	border-right: #FFD700;
 }
@@ -26,24 +46,49 @@ body{
 
 .btn-outline-custom:hover {
 	border-color: white !important;
-	color: #800000;
+	color: #510C1D;
 	background: white;
 
 }
 
 .tempsort {
 	text-align: center;
+
 }
 
 .filter {
 	text-align: center;
 	margin: 15px;
 }
-
+.form{
+	background-color: #8F7341;
+	height: 200px;
+	padding-top: 50px;
+}
 .searchbar {
 	width: 300px
 }
 
 .pac-container {
     z-index: 1042;
+}
+
+#footer{
+	padding: 50px 15px;
+	text-align: center;
+	background-color: #510C1D;
+}
+
+#footer h4{
+	font-size: 1em;
+	color: white;
+}
+
+.imageLink{
+    border: 1px; 
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+.imageLink:hover{
+    opacity:0.4; 
 }
