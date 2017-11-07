@@ -7,6 +7,10 @@ body{
 html, body{
 	height: 100%;
 }
+
+.content{
+	height: 100%;
+}
 .navbar{
 	height: 100px !important;
 }
@@ -50,10 +54,22 @@ html, body{
 	background: white;
 
 }
+.nopadding{
+	padding: 0px !important;
+}
 
+.dropdown{
+	text-align: center;
+	padding: 20px 15px;
+}
 .tempsort {
 	text-align: center;
+	padding: 50px 15px;
 
+}
+
+.tempsort input{
+	margin: 10px;
 }
 
 .filter {
@@ -62,12 +78,12 @@ html, body{
 }
 .form{
 	background-color: #8F7341;
-	height: 200px;
-	padding-top: 50px;
+	/*height: 200px;
+	padding-top: 50px;*/
 }
 .searchbar {
-	width: 300px
-}
+/*	width: 300px
+*/}
 
 .pac-container {
     z-index: 1042;
