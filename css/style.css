@@ -82,8 +82,8 @@ html, body{
 	padding-top: 50px;*/
 }
 .searchbar {
-/*	width: 300px
-*/}
+	width: 400px !important;
+}
 
 .pac-container {
     z-index: 1042;

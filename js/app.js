@@ -254,6 +254,14 @@ function CenterControl(controlDiv, map) {
     '</div>'+
     '</div>';
 
+    document.getElementById('autocomplete').value = "";
+    document.getElementById('name').value = "";
+    document.getElementById('address').value = "";
+    document.getElementById('address').value = "";
+    document.getElementById('town').value = "";
+    document.getElementById('state').value = "";
+    document.getElementById('zipcode').value = "";
+
 
     var marker = new google.maps.Marker({
             map: map,
